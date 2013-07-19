@@ -44,3 +44,6 @@ class TogglBaseApi():
             return None
         else:
             return json.loads(response.read().decode())
+
+    def prepare_datas(self, datas):
+        return json.dumps(datas).encode()
