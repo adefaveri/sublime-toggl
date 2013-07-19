@@ -17,5 +17,8 @@ class TogglProjectApiTest(unittest.TestCase):
     def test_get_workspace_projects(self):
         self.assertIsInstance(self.toggl_project.get_workspace_projects(workspace_id), list)
 
+    def test_create_project(self):
+        self.assertEqual(self.toggl_project.create({'name': 'foo', 'workspace_id': workspace_id})['name'], 'foo')
+
 if __name__ == '__main__':
     unittest.main()
