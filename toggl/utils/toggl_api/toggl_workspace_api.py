@@ -1,4 +1,4 @@
-from toggl.utils.toggl_api.toggl_base_api import TogglBaseApi
+from .toggl_base_api import TogglBaseApi
 
 class TogglWorkspaceApi(TogglBaseApi):
     WORKSPACES_LIST_URL        = 'https://www.toggl.com/api/v8/workspaces'

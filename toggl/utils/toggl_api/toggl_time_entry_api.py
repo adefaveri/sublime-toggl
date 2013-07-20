@@ -1,4 +1,4 @@
-from toggl.utils.toggl_api.toggl_base_api import TogglBaseApi
+from .toggl_base_api import TogglBaseApi
 
 class TogglTimeEntryApi(TogglBaseApi):
     TIME_ENTRY_START_URL = 'https://www.toggl.com/api/v8/time_entries/start'
