@@ -4,7 +4,7 @@ Track your time on [Toggl](https://www.toggl.com/) from Sublime Text!
 
 ## Installation
 
-Waiting integration in Package Control
+Search "Toggl Timer" from Package Control
 
 ## Usage
 
