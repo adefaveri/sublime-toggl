@@ -1,54 +1,22 @@
 import sublime
-import sublime_plugin
 
-from ..utils.toggl_api.toggl_workspace_api import TogglWorkspaceApi
-from ..utils.toggl_api.toggl_project_api import TogglProjectApi
-from ..settings import get_user_api_token
+from .base_manage_window import BaseManageWindowCommand
 from ..utils.palette import show_palette
 from ..utils.cache import Cache
 
-class ManageProjectsCommand(sublime_plugin.WindowCommand):
-    workspace_api = None
-    project_api   = None
-    workspaces    = None
-    projects      = None
-
+class ManageProjectsCommand(BaseManageWindowCommand):
     def run(self):
         self.workspaces = self.retrieve_workspaces()
 
         show_palette(self.window, ['Workspace: ' + workspace['name'] for workspace in self.workspaces], self.chosen_workspace)
 
-    def retrieve_workspaces(self):
-        if Cache.retrieve('workspaces') is None:
-            self.create_workspace_api_client()
-            Cache.store('workspaces', self.workspace_api.get_workspaces())
-
-        return Cache.retrieve('workspaces')
-
     def chosen_workspace(self, workspace_pick):
         if workspace_pick is -1:
             return
 
-        self.projects = self.retrieve_projects()
+        self.projects = self.retrieve_projects(self.workspaces[workspace_pick]['id'])
 
         show_palette(self.window, ['Create new project'] + [project['name'] for project in self.projects], lambda project_pick: self.chosen_project(project_pick, self.workspaces[workspace_pick]['id']))
-
-    def retrieve_projects(self):
-        if Cache.retrieve('projects') is None:
-            self.create_project_api_client()
-            Cache.store('projects', self.project_api.get_workspace_projects(self.workspaces[workspace_pick]['id']))
-
-        return Cache.retrieve('projects')
-
-    def create_workspace_api_client(self):
-        if self.workspace_api is None:
-            self.workspace_api = TogglWorkspaceApi()
-            self.workspace_api.authenticate(get_user_api_token())
-
-    def create_project_api_client(self):
-        if self.project_api is None:
-            self.project_api = TogglProjectApi()
-            self.project_api.authenticate(get_user_api_token())
 
     def chosen_project(self, project_pick, workspace_pick):
         if project_pick is -1:
