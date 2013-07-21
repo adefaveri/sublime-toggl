@@ -5,6 +5,7 @@ from ..utils.toggl_api.toggl_workspace_api import TogglWorkspaceApi
 from ..utils.toggl_api.toggl_project_api import TogglProjectApi
 from ..settings import get_user_api_token
 from ..utils.palette import show_palette
+from ..utils.cache import Cache
 
 class ManageProjectsCommand(sublime_plugin.WindowCommand):
     workspace_api = None
@@ -15,16 +16,29 @@ class ManageProjectsCommand(sublime_plugin.WindowCommand):
     def run(self):
         self.create_workspace_api_client()
         self.create_project_api_client()
-        self.workspaces = self.get_workspaces()
+
+        if Cache.retrieve('workspaces') is None:
+            Cache.store('workspaces', self.get_workspaces())
+
+        self.workspaces = Cache.retrieve('workspaces')
+
         show_palette(self.window, ['Workspace: ' + workspace['name'] for workspace in self.workspaces], self.chosen_workspace)
 
     def create_workspace_api_client(self):
-        self.workspace_api = TogglWorkspaceApi()
-        self.workspace_api.authenticate(get_user_api_token())
+        if Cache.retrieve('workspace_api') is None:
+            workspace_api = TogglWorkspaceApi()
+            workspace_api.authenticate(get_user_api_token())
+            Cache.store('workspace_api', workspace_api)
+
+        self.workspace_api = Cache.retrieve('workspace_api')
 
     def create_project_api_client(self):
-        self.project_api = TogglProjectApi()
-        self.project_api.authenticate(get_user_api_token())
+        if Cache.retrieve('project_api') is None:
+            project_api = TogglProjectApi()
+            project_api.authenticate(get_user_api_token())
+            Cache.store('project_api', project_api)
+
+        self.project_api = Cache.retrieve('project_api')
 
     def get_workspaces(self):
         workspaces = self.workspace_api.get_workspaces()
@@ -34,7 +48,10 @@ class ManageProjectsCommand(sublime_plugin.WindowCommand):
         if workspace_pick is -1:
             return
 
-        self.projects = self.project_api.get_workspace_projects(self.workspaces[workspace_pick]['id'])
+        if Cache.retrieve('projects') is None:
+            Cache.store('projects', self.project_api.get_workspace_projects(self.workspaces[workspace_pick]['id']))
+
+        self.projects = Cache.retrieve('projects')
 
         show_palette(self.window, ['Create new project'] + [project['name'] for project in self.projects], lambda project_pick: self.chosen_project(project_pick, self.workspaces[workspace_pick]['id']))
 
