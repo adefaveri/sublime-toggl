@@ -1,10 +1,10 @@
 [
     {
-        "caption": "Sublime Toggl: Manage Workspaces' Projects",
+        "caption": "Toggl Timer: Manage Workspaces' Projects",
         "command": "manage_projects"
     },
     {
-        "caption": "Sublime Toggl: Time Entries",
+        "caption": "Toggl Timer: Time Entries",
         "command": "manage_time_entries"
     }
 ]
