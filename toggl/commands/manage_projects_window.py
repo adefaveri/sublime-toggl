@@ -14,25 +14,31 @@ class ManageProjectsCommand(sublime_plugin.WindowCommand):
     projects      = None
 
     def run(self):
+        self.workspaces = self.retrieve_workspaces()
+
+        show_palette(self.window, ['Workspace: ' + workspace['name'] for workspace in self.workspaces], self.chosen_workspace)
+
+    def retrieve_workspaces(self):
         if Cache.retrieve('workspaces') is None:
             self.create_workspace_api_client()
             Cache.store('workspaces', self.workspace_api.get_workspaces())
 
-        self.workspaces = Cache.retrieve('workspaces')
-
-        show_palette(self.window, ['Workspace: ' + workspace['name'] for workspace in self.workspaces], self.chosen_workspace)
+        return Cache.retrieve('workspaces')
 
     def chosen_workspace(self, workspace_pick):
         if workspace_pick is -1:
             return
 
+        self.projects = self.retrieve_projects()
+
+        show_palette(self.window, ['Create new project'] + [project['name'] for project in self.projects], lambda project_pick: self.chosen_project(project_pick, self.workspaces[workspace_pick]['id']))
+
+    def retrieve_projects(self):
         if Cache.retrieve('projects') is None:
             self.create_project_api_client()
             Cache.store('projects', self.project_api.get_workspace_projects(self.workspaces[workspace_pick]['id']))
 
-        self.projects = Cache.retrieve('projects')
-
-        show_palette(self.window, ['Create new project'] + [project['name'] for project in self.projects], lambda project_pick: self.chosen_project(project_pick, self.workspaces[workspace_pick]['id']))
+        return Cache.retrieve('projects')
 
     def create_workspace_api_client(self):
         if self.workspace_api is None:
