@@ -10,4 +10,4 @@ def get_user_api_token():
     return api_token
 
 def get_preferences_filename():
-    return 'Sublime Toggl.sublime-settings'
+    return 'Toggl Timer.sublime-settings'

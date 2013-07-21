@@ -12,13 +12,13 @@
                 "children":
                 [
                     {
-                        "caption": "Sublime Toggl",
+                        "caption": "Toggl Timer",
                         "children":
                         [
                             {
                                 "command": "open_file", "args":
                                 {
-                                    "file": "${packages}/User/Sublime Toggl.sublime-settings"
+                                    "file": "${packages}/User/Toggl Timer.sublime-settings"
                                 },
                                 "caption": "Settings – User"
                             }
