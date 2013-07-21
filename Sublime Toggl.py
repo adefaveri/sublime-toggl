@@ -1,0 +1,1 @@
+from .toggl.commands.manage_projects_window import ManageProjectsCommand
