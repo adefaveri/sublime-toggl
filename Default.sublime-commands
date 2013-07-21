@@ -6,5 +6,9 @@
     {
         "caption": "Toggl Timer: Time Entries",
         "command": "manage_time_entries"
+    },
+    {
+        "caption": "Toggl Timer: Clear Cache",
+        "command": "clear_cache"
     }
 ]
