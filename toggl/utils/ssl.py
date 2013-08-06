@@ -6,7 +6,7 @@ from zipfile import ZipFile
 base_path = os.path.realpath(__file__ + '/../../..')
 toggl_package_path = base_path + '/Packages/Toggl Timer/'
 
-if not os.path.exists(toggl_package_path):
+if sublime.platform() == 'linux' and not os.path.exists(toggl_package_path):
     package = ZipFile(base_path + '/Installed Packages/Toggl Timer.sublime-package')
     for archived in package.namelist():
         if archived.startswith('lib/'):
