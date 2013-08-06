@@ -1,6 +1,16 @@
 import sublime
 import os
 import imp
+from zipfile import ZipFile
+
+base_path = os.path.realpath(__file__ + '/../../..')
+toggl_package_path = base_path + '/Packages/Toggl Timer/'
+
+if not os.path.exists(toggl_package_path):
+    package = ZipFile(base_path + '/Installed Packages/Toggl Timer.sublime-package')
+    for archived in package.namelist():
+        if archived.startswith('lib/'):
+            package.extract(archived, toggl_package_path)
 
 def load_ssl():
     try:
