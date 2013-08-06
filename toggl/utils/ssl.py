@@ -20,7 +20,7 @@ def load_ssl():
         ssl = False
 
     if ssl is False and sublime.platform() == 'linux':
-        plugin_path = os.path.dirname(os.path.realpath(__file__ + '../../../'))
+        plugin_path = os.path.dirname(toggl_package_path)
         if plugin_path in ('.', ''):
             plugin_path = os.getcwd()
         _ssl = None
