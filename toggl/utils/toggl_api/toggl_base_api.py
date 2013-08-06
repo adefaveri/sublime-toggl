@@ -2,7 +2,7 @@ from base64 import b64encode
 import json
 import imp
 
-from .toggl.utils.ssl import load_ssl
+from ..ssl import load_ssl
 load_ssl()
 
 from urllib.request import *
