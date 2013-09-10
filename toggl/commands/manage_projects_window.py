@@ -4,6 +4,7 @@ from .base_manage_window import BaseManageWindowCommand
 from ..utils.palette import show_palette
 from ..utils.cache import Cache
 
+
 class ManageProjectsCommand(BaseManageWindowCommand):
     def run(self):
         self.workspaces = self.retrieve_workspaces()
