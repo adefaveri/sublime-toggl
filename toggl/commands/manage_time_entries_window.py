@@ -6,15 +6,16 @@ from ..utils.palette import show_palette
 from ..settings import get_user_api_token
 from ..utils.cache import Cache
 
+
 class ManageTimeEntriesCommand(BaseManageWindowCommand):
     time_entry_api = None
 
     def run(self):
         if Cache.retrieve('time_entry_running') is None:
-            options  = ['Start a time entry for project…']
+            options = ['Start a time entry for project…']
             callback = self.chose_start_option
         else:
-            options  = ['Stop running time entry']
+            options = ['Stop running time entry']
             callback = self.stop_running_time_entry
 
         show_palette(self.window, options, callback)
