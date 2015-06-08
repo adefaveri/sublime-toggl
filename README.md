@@ -10,7 +10,7 @@ Search "Toggl Timer" from Package Control
 
 ### Configuration
 
-Enter you Toggl API key (found in [your profile](https://www.toggl.com/user/edit)) in Toggl Timer.sublime-preferences (Preferences > Package Settings > Toggl Timer > Settings - User)
+Enter you Toggl API key (found in [your profile](https://www.toggl.com/app/profile)) in Toggl Timer.sublime-preferences (Preferences > Package Settings > Toggl Timer > Settings - User)
 
 ```json
 {
