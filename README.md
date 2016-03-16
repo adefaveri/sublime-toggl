@@ -2,6 +2,10 @@
 
 Track your time on [Toggl](https://www.toggl.com/) from Sublime Text!
 
+## Discontinued
+
+This repo is not maintained anymore. If you want to take it over, please ask it in an [issue](https://github.com/chadrien/sublime-toggl/issues/new).
+
 ## Installation
 
 Search "Toggl Timer" from Package Control
