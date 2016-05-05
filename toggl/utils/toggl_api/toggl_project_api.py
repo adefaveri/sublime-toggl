@@ -10,7 +10,7 @@ class TogglProjectApi(TogglBaseApi):
         return self.get_response(self.request(self.WORKSPACE_PROJECTS_LIST_URL % (workspace_id)))
 
     def create(self, datas):
-        return self.get_response(self.request(self.WORKSPACE_PROJECT_CREATE_URL, self.prepare_datas({'project': datas}), {'Content-type': 'application/json'}, 'POST'))['data']
+        return self.get_response(self.request(self.WORKSPACE_PROJECT_CREATE_URL, self.prepare_datas({'project': datas}), {'Content-type': 'application/json; charset=utf-8'}, 'POST'))['data']
 
     def update(self, project_id, datas):
-        return self.get_response(self.request(self.WORKSPACE_PROJECT_UPDATE_URL % (project_id), self.prepare_datas({'project': datas}), {'Content-type': 'application/json'}, 'PUT'))['data']
+        return self.get_response(self.request(self.WORKSPACE_PROJECT_UPDATE_URL % (project_id), self.prepare_datas({'project': datas}), {'Content-type': 'application/json; charset=utf-8'}, 'PUT'))['data']
